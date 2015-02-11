@@ -181,7 +181,7 @@ class Wpis {
 		}else{
 			$odleglosc = preg_replace('/\,+/', '.', $odleglosc);
 			if($odleglosc > 0){
-				if($this->round){
+				if($this->round && round($odleglosc) > 0){
 					$this->odleglosci[] = array(
 						'dystans' => (int)round($odleglosc));
 				}else{
