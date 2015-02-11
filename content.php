@@ -45,6 +45,6 @@ if(!isset($_GET['dodaj'])){
 	<br />Gdyż błąd zdaje się być po twojej stronie</p>';
 
 	//Wrzuca nowy formularz, prawdopodobnie z danymi które były w nim przed wystąpieniem błędu
-	catch_data();
+	form();
 }
 ?>

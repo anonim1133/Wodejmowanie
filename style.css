@@ -158,3 +158,10 @@ a#dodajDystans div{
     clear: both;
     margin-bottom:2px;
 }
+
+img#loading{
+	display: block;
+	width: 300px;
+	margin-right: auto;
+	margin-left: auto;
+}
