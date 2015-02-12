@@ -115,7 +115,7 @@ class Endomondo {
 
 			return $min.':'.$s.' min/km';
 		}
-		elseif(preg_match("/mi$/", $this->max) > 0)
+		elseif(preg_match("/mph$/", $this->max) > 0)
 			return number_format((real)$this->max*1.609344, 2, ',', ' ').' km';
 		else
 			return $this->max;
