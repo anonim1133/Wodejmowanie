@@ -55,21 +55,17 @@ class Wpis {
 			$_SESSION['userkey'] = $answer['userkey'];
 		}
 	}
-//sekcja funkcji prywatnych 	
+//sekcja funkcji prywatnych 
 	private function ostatniaOdleglosc(){
 		$result = $this->api->doRequest('tag/entries/'.$this->tag);
 		preg_match('/=(.+)/', $result['items'][0]['body'], $wynik);
 		$wynik = $wynik[1];
 
-		if($this->round) $wynik = preg_replace('/[^0-9.]+/', '', $wynik);
-		else{
-			$wynik = preg_replace('/[\s]+/', '', $wynik);
-			$wynik = preg_replace('/[\,]+/', '.', $wynik);
-		}
+		$wynik = preg_replace('/[^\.\,0-9]+/', '', $wynik);
+		$wynik = preg_replace('/[\,]+/', '.', $wynik);
 
 		if($wynik <= 0 && $this->tag == 'rowerowyrownik')
 			$wynik = (int)file_get_contents('http://adammik.eu/rr/ostatniPoprawnyWynik.txt');
-
 
 		if($this->round) $this->ostatnia = (int)$wynik;
 		else $this->ostatnia = (real)$wynik;
@@ -159,7 +155,8 @@ class Wpis {
 	}
 	
 	function dodajOdleglosc($odleglosc){
-		$pattern = "/(^http:\/\/www.endomondo)|(^http:\/\/endomondo)|(^https:\/\/www.endomondo)|(^https:\/\/endomondo)/";
+		//$pattern = "/(^http:\/\/www.endomondo)|(^http:\/\/endomondo)|(^https:\/\/www.endomondo)|(^https:\/\/endomondo)/";
+		$pattern = "/endomondo/";
 		if(preg_match($pattern, $odleglosc)){
 			$endo = new Endomondo($odleglosc);
 
