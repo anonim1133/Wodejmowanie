@@ -9,5 +9,6 @@ function dodajDystans(){
 function dodajWpis(){
 	$('input#dodaj').attr('disabled', 'true');
 	$('form').submit();
-	$('.container').html('<img id="loading" src="assets/loading-wheel.gif">');
+	$('form').toggle();
+	$('.container').append('<img id="loading" src="assets/loading-wheel.gif">');
 }

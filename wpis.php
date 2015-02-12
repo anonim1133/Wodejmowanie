@@ -55,7 +55,7 @@ class Wpis {
 			$_SESSION['userkey'] = $answer['userkey'];
 		}
 	}
-//sekcja funkcji prywatnych 
+//sekcja funkcji prywatnych
 	private function ostatniaOdleglosc(){
 		$result = $this->api->doRequest('tag/entries/'.$this->tag);
 		preg_match('/=(.+)/', $result['items'][0]['body'], $wynik);
@@ -130,7 +130,7 @@ class Wpis {
 			setcookie('reklama', 0, time()+3600*24*32);			
 		}
 
-		if(md5($tresc) == $_COOKIE['last']){
+		if(isset($_COOKIE['last']) && md5($tresc) == $_COOKIE['last']){
 			$this->blad = "Duplikaty się dodaje, eh?<br /> Sprawdź na mirko, jeden wpis powinien był się dodać";
 		}else{
 			return $this->dodaj($tresc);
