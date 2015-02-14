@@ -64,9 +64,9 @@ class Endomondo {
 
 	public function getDystans(){
 		if(preg_match("/mi$/", $this->dystans) > 0)
-			return number_format((real)$this->dystans*1.609344, 2, ',', ' ').' km';
+			return number_format((real)$this->dystans*1.609944, 2, '.', ' ').' km';
 		else
-			return $this->dystans;
+			return $this->dystans.' km';
 	}
 	
 	public function getCzas(){
@@ -92,7 +92,7 @@ class Endomondo {
 
 			return $min.':'.$s.' min/km';
 		}elseif(preg_match("/mph$/", $this->srednia) > 0)
-			return number_format((real)$this->srednia*1.609344, 2, ',', ' ').' km/h';
+			return number_format((real)$this->srednia*1.609944, 2, '.', ' ').' km/h';
 		else
 			return $this->srednia;
 	}
@@ -116,7 +116,7 @@ class Endomondo {
 			return $min.':'.$s.' min/km';
 		}
 		elseif(preg_match("/mph$/", $this->max) > 0)
-			return number_format((real)$this->max*1.609344, 2, ',', ' ').' km';
+			return number_format((real)$this->max*1.609944, 2, ',', ' ').' km';
 		else
 			return $this->max;
 	}
