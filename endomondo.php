@@ -64,9 +64,9 @@ class Endomondo {
 
 	public function getDystans(){
 		if(preg_match("/mi$/", $this->dystans) > 0)
-			return number_format((real)$this->dystans*1.609944, 2, '.', ' ').' km';
+			return number_format((real)$this->dystans*1.609944, 2, '.', ' ');
 		else
-			return $this->dystans.' km';
+			return $this->dystans;
 	}
 	
 	public function getCzas(){
