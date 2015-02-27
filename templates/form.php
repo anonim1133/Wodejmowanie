@@ -1,20 +1,28 @@
 <?php
 
 function form(){
-	echo '<form method="post" action="?dodaj">';
+	echo '<form method="post" action="?dodaj">
+	<input id="licznik" name="dystans[]" type="hidden" class="pole" placeholder="Wpisz dystans" value="0">
+	<input id="tytul" name="tutul" type="text" class="pole" placeholder="Tytuł" autofocus="autofocus">
+	<input id="autor" name="autor" type="text" class="pole" placeholder="Autor">
+	<input id="gatunek" name="gatunek" type="text" class="pole" placeholder="Gatunek">
 
-	if(isset($_POST['dystans']) &&count($_POST['dystans']) > 0)
-		foreach($_POST['dystans'] as $dystans)
-			echo '<input id="pierwszy" name="dystans[]" type="text" class="pole" placeholder="Wpisz dystans" autofocus="autofocus" value="'.$dystans.'">';
-	else
-		echo '<input id="pierwszy" name="dystans[]" type="text" class="pole" placeholder="Wpisz dystans" autofocus="autofocus">';
+	<label id="punkty">Ocena</label>
+	<input id="punkty" type="range" name="punkty" class="pole" min="0" max="10">
 
-	echo '<a id="dodajDystans" href="#dodajDystans" onclick="dodajDystans()"><div> Dodaj dystans</div></a>
-	<a id="dodajObrazUrl" href="#dodajObrazUrl" onclick="embed()"><div id="dodajObrazUrl"> Dodaj obraz z url</div></a>
-	<textarea name="tresc"  style="width: 98%; border: 1px solid #d5d5d5; font-size: 14px; padding: 8px; font-family: \'Lato\';" placeholder="Opisz swoją wycieczkę" rows="10">'.((isset($_POST['tresc']))?$_POST['tresc']: '').'</textarea>
-	<input id="dodaj" class="btn" type="submit" value="Dodaj" onclick="dodajWpis()" /><label><input type="checkbox" name="reklama" value="true"';
+	<textarea name="recenzja" placeholder="Kilka słów o książce" rows="10"></textarea>
+
+	<a id="dodajDystans" href="#dodajKsiazke" onclick="dodajKsiazke()"><div> Dodaj książkę</div></a>
+
+
+	<textarea name="tresc" placeholder="Treść wpisu" rows="10">'.((isset($_POST['tresc']))?$_POST['tresc']: '').'</textarea>
+	<br />
+	<a id="dodajObrazUrl" href="#dodajObrazUrl" onclick="embed()"><div id="dodajObrazUrl"> Dodaj obraz </div></a>
+	</br>
+	<input id="dodaj" class="btn" type="submit" value="Dodaj wpis" onclick="dodajWpis()" /><label><input type="checkbox" name="reklama" value="true"';
 
 	if(isset($_COOKIE['reklama']) && $_COOKIE['reklama']) echo 'checked';
 
 	echo ' /> Czy chcesz dodać informację o tym skrypcie?</label></form>';
+
 }

@@ -80,20 +80,30 @@ body {
 	margin-left: auto; 
 }
 .pole{
-	float: left;
-	clear: left;
+	display: block;
 	border: 1px solid #d5d5d5;
 	font-size: 14px;
 	padding: 8px;
 	margin: 0px;
 	margin-bottom: 2px;
+	margin-left: auto;
+	margin-right: auto;
+	width:256px;
 }
 
-.textarea {
-	float: left;
+textarea {
 	border: 1px solid #d5d5d5;
 	font-size: 14px;
 	padding: 8px;
+
+	width: 98%;
+	border: 1px solid #d5d5d5;
+	font-size: 14px; padding: 8px;
+	font-family: \'Lato\';
+}
+
+textarea[name="tresc"]{
+	margin-top: 16px;
 }
 .btn {
 	background-color: #9dd8d3;
@@ -137,14 +147,24 @@ label.info{
 	font-size: 9px;
 }
 
+label#punkty{
+	display:block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	width: 256px;
+	font-size: 29px;
+}
+
 div#dodajObrazUrl{
-	float:left;
 	clear: both;
 	width: 150px;
 	padding: 10px;
 	background-color: #9dd8d3;
 	color: white;
 	vertical-align: middle;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 a#dodajDystans div{
@@ -154,9 +174,10 @@ a#dodajDystans div{
     color: white;
     vertical-align: middle;
 
-    float:left;
     clear: both;
-    margin-bottom:2px;
+    margin-bottom: 32px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 img#loading{
