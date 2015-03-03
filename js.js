@@ -18,7 +18,6 @@ var opis = '**Tytuł:** ' + $('input#tytul').val() + "\n" +
 	$('input#autor').val('');
 	$('input#gatunek').val('');
 	$('textarea[name=recenzja]').val('');
-	$('input#licznik').val(5);
 	$('label#punkty').text('Ocena');
 
 	var txt_tresc = $('textarea[name=tresc]');
