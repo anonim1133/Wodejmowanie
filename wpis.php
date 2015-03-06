@@ -84,7 +84,7 @@ class Wpis {
 		}
 		
 		if(count($this->odleglosci) == 0){
-			$this->blad = 'Nie dodajemy pustych przejazdów';
+			$this->blad = 'Nie dodajemy wpisów bez odejmowania!';
 			return FALSE;
 		}
 			
@@ -124,8 +124,7 @@ class Wpis {
 			
 			$tresc .= "\n\nWpis został dodany za pomocą skryptu [do odejmowania]($this->return_url)
 			!Dzięki niemu unika się błędów w działaniach
-			!Pobierany jest zawsze ostatni wynik
-			!Zamiast dystansów można w pole 'Dystans' wkleić link do treningu Endomondo - zostaną dodane dodatkowe statystyki";
+			!Pobierany jest zawsze ostatni wynik";
 		}else{
 			setcookie('reklama', 0, time()+3600*24*32);			
 		}
