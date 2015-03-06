@@ -26,10 +26,15 @@ var opis = '**Tytuł:** ' + $('input#tytul').val() + "\n" +
 }
 
 function dodajWpis(){
-	$('input#dodaj').attr('disabled', 'true');
-	$('form').submit();
-	$('form').toggle();
-	$('.container').append('<img id="loading" src="assets/loading-wheel.gif">');
+	//Sprawdzam czy jakaś książka została dodana
+	if($('input#licznik').val() !== "0"){
+		$('input#dodaj').attr('disabled', 'true');
+		$('form').submit();
+		$('form').toggle();
+		$('.container').append('<img id="loading" src="assets/loading-wheel.gif">');
+	}else{
+		alert("Nie dodałeś żadnej książki?\nUpewnij się, że kliknąłeś \"Dodaj książkę\" pod formularzem z książką.");
+	}
 }
 
 function gwiazdki(ile){

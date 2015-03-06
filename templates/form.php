@@ -19,7 +19,10 @@ function form(){
 	<br />
 	<a id="dodajObrazUrl" href="#dodajObrazUrl" onclick="embed()"><div id="dodajObrazUrl"> Dodaj obraz </div></a>
 	</br>
-	<input id="dodaj" class="btn" type="submit" value="Dodaj wpis" onclick="dodajWpis()" /><label><input type="checkbox" name="reklama" value="true"';
+	<a id="dodajObrazUrl" href="#dodajObrazUrl" onclick="embed()"><div id="dodajObrazUrl"> Dodaj obraz </div></a>
+	<!-- <input id="dodaj" class="btn" type="submit" value="Dodaj wpis" onclick="dodajWpis()" />-->
+	<a id="dodajWpis" href="#dodajWpis" onclick="dodajWpis()"><div id="dodajWpis"> Dodaj wpis </div></a>
+	<label style="top: 8px; position: relative;"><input type="checkbox" name="reklama" value="true"';
 
 	if(isset($_COOKIE['reklama']) && $_COOKIE['reklama']) echo 'checked';
 
