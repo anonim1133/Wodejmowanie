@@ -105,7 +105,11 @@ class Wpis {
 			else $dzialanie .= ' - '.number_format((float)$odleglosc['dystans'], 2, ',', '');
 			
 			if(isset($odleglosc['srednia']))
-				$statystyki .= 'Dystans: '.$odleglosc['dystans']." km\nCzas: ".$odleglosc['czas']."\nŚrednia prędkość: ".$odleglosc['srednia']."\nMaksymalna prędkość: ".$odleglosc['max']."\nSpalonych kalorii: ".$odleglosc['kalorie']."\n\n";
+				$statystyki .= 'Dystans: '.$odleglosc['dystans']." km\nCzas: ".$odleglosc['czas']."\nŚrednia prędkość: ".$odleglosc['srednia']." km/h\nMaksymalna prędkość: ".$odleglosc['max']." km/h\nSpalonych kalorii: ".$odleglosc['kalorie'];
+                if($odleglosc['tetno'] != 0){
+                    $statystyki .= "\nŚrednie tętno: ".$odleglosc['tetno'];
+                }
+                $statystyki .= "\n\n";
 		}
 
 		if($this->round) $dzialanie .= ' = '.number_format((int)$po, 0, ',', ' ');
@@ -166,14 +170,16 @@ class Wpis {
 					'czas' => $endo->getCzas(),
 					'srednia' => $endo->getSrednia(),
 					'max' => $endo->getMax(),
-					'kalorie' => $endo->getKalorie());
+					'kalorie' => $endo->getKalorie(),
+                    'tetno' => $endo->getTetno());
 			}else{
 				$this->odleglosci[] = array(
 					'dystans' => (real)$endo->getDystans(),
 					'czas' => $endo->getCzas(),
 					'srednia' => $endo->getSrednia(),
 					'max' => $endo->getMax(),
-					'kalorie' => $endo->getKalorie());
+					'kalorie' => $endo->getKalorie(),
+                    'tetno' => $endo->getTetno());
 			}
 		}else{
 			$odleglosc = preg_replace('/\,+/', '.', $odleglosc);

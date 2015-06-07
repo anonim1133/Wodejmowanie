@@ -9,30 +9,39 @@ class Endomondo {
 	private $kalorie;
 	
 	public function __construct($url){
-		$dom = new DomDocument();
 
-		@$dom->loadHTML(file_get_contents($url));;
+        $url = 'https://www.endomondo.com/rest/v1'.substr($url,strpos($url,'/users'));
 
-		$matches = $this->getElementsByClassName($dom, 'summary');
-	
-		$matches = $matches[count($matches)-1]->ownerDocument->saveXML($matches[count($matches)-1]);
-	
-		@$dom->loadHTML(ereg_replace('class', 'id', $matches));
+        $json = file_get_contents($url);
 
-		$li = $dom->getElementById('distance');
-		$this->set('dystans', trim(explode("\n", $li->nodeValue)[2]));
-	
-		$li = $dom->getElementById('duration');
-		$this->set('czas', trim(explode("\n", $li->nodeValue)[2]));
-	
-		$li = $dom->getElementById('avg-speed');
-		$this->set('srednia', trim(explode("\n", $li->nodeValue)[2]));
-	
-		$li = $dom->getElementById('max-speed');
-		@$this->set('max', trim(explode("\n", $li->nodeValue)[2]));
-	
-		$li = $dom->getElementById('calories');
-		$this->set('kalorie', trim(explode("\n", $li->nodeValue)[2]));
+        $data = json_decode($json);
+
+
+        $this->set('dystans',sprintf("%01.2f", $data->distance));
+
+        if($data->duration > 3600){
+            $czas = gmdate('H:i:s',$data->duration);
+        }else{
+            $czas = gmdate('i:s',$data->duration);
+        }
+
+        $this->set('czas',  $czas);
+
+        $this->set('srednia',sprintf("%01.2f", $data->speed_avg));
+
+        $this->set('max',sprintf("%01.2f", $data->speed_max));
+
+        $this->set('kalorie',$data->calories);
+
+        $hr = 0;
+        foreach($data->laps->metric as $i){
+            $hr+=$i->average_heart_rate;
+        }
+
+        $avg_hr = $hr/count($data->laps->metric);
+        $this->set('tetno',sprintf("%01.2f", $avg_hr));
+
+
 	}
 	
 	private function set($var, $value) {
@@ -63,9 +72,6 @@ class Endomondo {
 	}
 
 	public function getDystans(){
-		if(preg_match("/mi$/", $this->dystans) > 0)
-			return number_format((real)$this->dystans*1.609944, 2, '.', ' ');
-		else
 			return $this->dystans;
 	}
 	
@@ -74,56 +80,20 @@ class Endomondo {
 	}
 	
 	public function getSrednia(){
-		if(preg_match("/min\/mi$/", $this->srednia) > 0){
-			$t = number_format((real)$this->srednia/1.53, 2, ',', ' ');
-
-			$split = explode(',', $t);
-
-			$min = $split[0];
-			$s = $split[1];
-
-			if($s >= 60){
-				$min++;
-				$s -= 60;
-			}
-
-			if($s < 10)
-				$s = '0'.$s;
-
-			return $min.':'.$s.' min/km';
-		}elseif(preg_match("/mph$/", $this->srednia) > 0)
-			return number_format((real)$this->srednia*1.609944, 2, '.', ' ').' km/h';
-		else
-			return $this->srednia;
+        return $this->srednia;
 	}
 	
 	public function getMax(){
-		if(preg_match("/min\/mi$/", $this->max) > 0){
-			$t = number_format((real)$this->max/1.53, 2, ',', ' ');
-			$split = explode(',', $t);
-
-			$min = $split[0];
-			$s = $split[1];
-
-			if($s >= 60){
-				$min++;
-				$s -= 60;
-			}
-
-			if($s < 10)
-				$s = '0'.$s;
-
-			return $min.':'.$s.' min/km';
-		}
-		elseif(preg_match("/mph$/", $this->max) > 0)
-			return number_format((real)$this->max*1.609944, 2, ',', ' ').' km';
-		else
-			return $this->max;
+		return $this->max;
 	}
 	
 	public function getKalorie(){
 		return $this->kalorie;
 	}
+
+    public function getTetno(){
+        return $this->tetno;
+    }
 }
 
 ?>
