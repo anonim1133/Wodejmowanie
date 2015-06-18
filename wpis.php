@@ -105,7 +105,8 @@ class Wpis {
 			else $dzialanie .= ' - '.number_format((float)$odleglosc['dystans'], 2, ',', '');
 			
 			if(isset($odleglosc['srednia']))
-				$statystyki .= 'Dystans: '.$odleglosc['dystans']." km\nCzas: ".$odleglosc['czas']."\nŚrednia prędkość: ".$odleglosc['srednia']." km/h\nMaksymalna prędkość: ".$odleglosc['max']." km/h\nSpalonych kalorii: ".$odleglosc['kalorie'];
+				$statystyki .= 'Dystans: '.$odleglosc['dystans']." km\nCzas: ".$odleglosc['czas']."\nŚrednia prędkość: ".$odleglosc['srednia']." km/h\nMaksymalna prędkość: ".$odleglosc['max']." km/h";
+				if($odleglosc['kalorie'] != -1) $statystyki .= "\nSpalonych kalorii: ".$odleglosc['kalorie'];
                 if($odleglosc['tetno'] != 0){
                     $statystyki .= "\nŚrednie tętno: ".$odleglosc['tetno'];
                 }
@@ -163,6 +164,7 @@ class Wpis {
 		$pattern = "/endomondo/";
 		if(preg_match($pattern, $odleglosc)){
 			$endo = new Endomondo($odleglosc);
+
 
 			if($this->round){
 				$this->odleglosci[] = array(
