@@ -10,9 +10,6 @@ class Endomondo {
     private $tetno;
 	
 	public function __construct($url){
-//https\:\/\/www\.endomondo\.com\/users\/(\d+)\/workouts\/(\d+)
-
-
 
         $url = $this->api_url($url);
 
