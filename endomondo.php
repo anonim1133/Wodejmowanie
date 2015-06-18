@@ -7,10 +7,11 @@ class Endomondo {
 	private $srednia;
 	private $max;
 	private $kalorie;
+    private $tetno;
 	
 	public function __construct($url){
 
-        $url = 'https://www.endomondo.com/rest/v1'.substr($url,strpos($url,'/users'));
+        $url = $this->api_url($url);
 
         $json = file_get_contents($url);
 
@@ -30,8 +31,10 @@ class Endomondo {
         $this->set('srednia',sprintf("%01.2f", $data->speed_avg));
 
         $this->set('max',sprintf("%01.2f", $data->speed_max));
-
-        $this->set('kalorie',$data->calories);
+        if(property_exists($data,'calories'))
+            $this->set('kalorie',$data->calories);
+        else
+            $this->set('kalorie',-1);
 
         $hr = 0;
         foreach($data->laps->metric as $i){
@@ -43,7 +46,25 @@ class Endomondo {
 
 
 	}
-	
+
+
+    private function api_url($url){
+
+        preg_match("/https?:\/\/www\.endomondo\.com\/users\/(\d+)\/workouts\/(\d+)/",$url,$out);
+        if(count($out) == 3){
+            return 'https://www.endomondo.com/rest/v1/users/'.$out[1].'/workouts/'.$out[2];
+        }
+
+        preg_match("/https?:\/\/www\.endomondo\.com\/workouts\/(\d+)\/(\d+)/",$url,$out);
+        if(count($out) == 3){
+            return 'https://www.endomondo.com/rest/v1/users/'.$out[2].'/workouts/'.$out[1];
+        }
+
+        throw new Exception('Niepoprawny url');
+
+    }
+
+
 	private function set($var, $value) {
 		$this->$var = $value;
 	}
