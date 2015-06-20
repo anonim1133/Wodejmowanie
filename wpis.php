@@ -76,6 +76,7 @@ class Wpis {
 	}
 	
 	public function dodajWpis(){
+        if($this->blad != '') return false;
 		$this->ostatniaOdleglosc();
 
 		if($this->ostatnia<=0){
@@ -163,7 +164,13 @@ class Wpis {
 		//$pattern = "/(^http:\/\/www.endomondo)|(^http:\/\/endomondo)|(^https:\/\/www.endomondo)|(^https:\/\/endomondo)/";
 		$pattern = "/endomondo/";
 		if(preg_match($pattern, $odleglosc)){
-			$endo = new Endomondo($odleglosc);
+
+            try {
+                $endo = new Endomondo($odleglosc);
+            }catch(Exception $e){
+                $this->blad = $e->getMessage();
+                return false;
+            }
 
 
 			if($this->round){
