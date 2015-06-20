@@ -22,7 +22,7 @@ if(!isset($_GET['dodaj'])){
 	$id = $wpis->dodajWpis();
 
 	//Sprawdzamy czy wystąpiły błędy
-	if($id != FALSE){
+	if($id != FALSE && $wpis->zwrocBlad() == ''){
 
 		//Jeżeli nie, przekierowujemy do nowo dodanego wpisu
 		$url = "http://www.wykop.pl/wpis/$id";
